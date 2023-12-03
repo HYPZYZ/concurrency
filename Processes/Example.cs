@@ -63,6 +63,14 @@ namespace Example
         public void printIdByName()
         {
             // todo: Implement the body of this method that gets an input for a process name and prints corresponding id
+            
+            Console.WriteLine("Name a process");
+            string processToFind = Console.ReadLine();
+
+            foreach (var process in Process.GetProcessesByName(processToFind))
+            {
+                Console.WriteLine(process.Id);
+            }
         }
     }
 }

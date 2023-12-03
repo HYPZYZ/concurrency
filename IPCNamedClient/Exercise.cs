@@ -12,10 +12,11 @@ namespace Exercise
             Console.WriteLine("Pipe Client is being executed ...");
             Console.WriteLine("[Client] waiting to receive a message");
 
-            var server = new NamedPipeServerStream("PipesOfConcurrency");
+            var server = new NamedPipeServerStream("PipesOfConcurrency", PipeDirection.InOut);
             server.WaitForConnection();
 
             StreamReader reader = new StreamReader(server);
+            StreamWriter writer = new StreamWriter(server);
 
             while (true)
             {
@@ -25,8 +26,12 @@ namespace Exercise
                 else
                 {
                     Console.WriteLine(msg); // Print the message received
-                    Console.WriteLine(String.Join("", msg.Reverse())); // Print the reverse of the received message
 
+                    string reversed = string.Join("", msg.Reverse());
+                    Console.WriteLine(reversed); // Print the reverse of the received message
+                    
+                    writer.WriteLine(reversed);
+                    writer.Flush();
                 }
             }
         }
