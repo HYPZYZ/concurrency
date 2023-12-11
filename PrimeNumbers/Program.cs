@@ -19,13 +19,12 @@ namespace Program
 
             ConPrimeNumbers pn = new ConPrimeNumbers();
 
-            pn.runSequential(min, max);
+            pn.runSequential(min, max); // 13074
 
             Thread.Sleep(5000);
 
-            pn.runConcurrent(min, max);
-
-
+            pn.runConcurrent(min, max); // 7029
+            
         }
     }
 }

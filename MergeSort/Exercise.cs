@@ -72,11 +72,31 @@ namespace Exercise
         }
 
     }
-    public class ConcurrentMergeSort
+    
+    public class ConcurrentMergeSort : SequentialMergeSort
     {
-        // Implements concurrent version of MergeSort.
-        public virtual void sortCon(int[] d)
+        public ConcurrentMergeSort(int[] data) : base(data)
         {
+        }
+        
+        // Implements concurrent version of MergeSort.
+        public virtual void sortCon(int left, int right)
+        {
+            if (left < right)
+            {
+                int middle = (left + right) / 2;
+
+                Thread tlm = new Thread(() => sortCon(left, middle));
+                Thread tmr = new Thread(() => sortCon(middle + 1, right));
+                
+                tlm.Start();
+                tmr.Start();
+
+                tlm.Join();
+                tmr.Join();
+
+                merge(left, middle, right);
+            }
             // Todo 1: Instantiate an object of mergeSort.
 
             // Todo 2: Divide the main array into two pieces: left and right. Where is the middle?
@@ -88,6 +108,7 @@ namespace Exercise
             // Todo 5: Join to the working threads.
 
             // Todo 6: Merge the results to create the complete sorted array. Then print the content
+            
         }
 
     }

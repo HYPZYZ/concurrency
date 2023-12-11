@@ -111,10 +111,9 @@ namespace Exercise
 
             // todo 2.1: uncomment (only one at the time) the following statements to see the behaviour of the program
 
-            //this.createOneThread();
-
-            this.createTwoXYThreads();
-            //this.createMultipleThreads();
+            // this.createOneThread();
+            // this.createTwoXYThreads();
+            this.createMultipleThreads();
         }
     }
 }
