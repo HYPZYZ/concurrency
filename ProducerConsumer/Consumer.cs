@@ -23,17 +23,21 @@ namespace Exercise
         {
             // each consumer waits for a period of time (randomly) before its consume action
             Thread.Sleep(new Random().Next(minTime, maxTime));
-
-            PCInformation data;
-
-            if (buffer.Count > 0)
+            
+            lock (mutex)
             {
-                data = buffer.First.Value;
-                buffer.RemoveFirst(); // an item is removed from the beginning of the list
-                Console.Out.WriteLine("[Consumer] {0} is consumed", data.dataValue.ToString());
+                PCInformation data;
+                
+                if (buffer.Count > 0)
+                {
+                    data = buffer.First.Value;
+                    buffer.RemoveFirst(); // an item is removed from the beginning of the list
+                    Console.Out.WriteLine("[Consumer] {0} is consumed", data.dataValue.ToString());
+                }
+                else
+                    Console.Out.WriteLine("[Consumer] EMPTY BUFFER");    
             }
-            else
-                Console.Out.WriteLine("[Consumer] EMPTY BUFFER");
+
         }
 
         // as soon as there is a chance, num of items will be consumed

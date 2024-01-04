@@ -27,10 +27,10 @@ namespace Program
 
             // todo 5: uncomment the following code and analyze the execution and behaviour. Is the program thread-safe?
 
-            //Console.ReadKey();
-            //Console.Clear();
-            //Console.WriteLine("Concurrent (multiple producer multiple consumer) version ....");
-            //simulator.concurrentMultiProducerMultiConsumer(n,5);
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine("Concurrent (multiple producer multiple consumer) version ....");
+            simulator.concurrentMultiProducerMultiConsumer(n,5);
 
         }
     }

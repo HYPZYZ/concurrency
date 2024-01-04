@@ -24,11 +24,15 @@ namespace Exercise
         {
             // each producer will wait for a while (randomly) before producing items
             Thread.Sleep(new Random().Next(minTime, maxTime));
+            
+            lock (mutex)
+            { 
+                PCInformation data = new PCInformation();
+                data.dataValue = this.item++; // or a random value like:  new Random().Next();
+                buffer.AddLast(data); // an item is added to the end of the list
+                Console.Out.WriteLine("[Producer] {0} is inserted", data.dataValue.ToString()); 
+            }
 
-            PCInformation data = new PCInformation();
-            data.dataValue = this.item++; // or a random value like:  new Random().Next();
-            buffer.AddLast(data); // an item is added to the end of the list
-            Console.Out.WriteLine("[Producer] {0} is inserted", data.dataValue.ToString());
         }
 
         // as soons as there is a chance, num of items will be produced
