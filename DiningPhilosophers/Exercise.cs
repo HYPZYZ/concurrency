@@ -68,12 +68,19 @@ namespace Exercise
         public virtual void eatWithTwoForks()
         {
             Console.WriteLine("[{0} waiting for right fork ...]", number);
-            rightFork.pick();
-            Console.WriteLine("[{0} picked right fork {1}, waiting for left fork {2} ...]", number, rightFork.id, leftFork.id);
-            leftFork.pick();
-            this.eat();
-            leftFork.release();
-            rightFork.release();
+
+            lock (rightFork)
+            {
+                lock (leftFork)
+                {
+                    rightFork.pick();
+                    Console.WriteLine("[{0} picked right fork {1}, waiting for left fork {2} ...]", number, rightFork.id, leftFork.id);
+                    leftFork.pick();
+                    this.eat();
+                    leftFork.release();
+                    rightFork.release();
+                }
+            }
         }
         public void startEatingWithOneFork(Object it)
         {

@@ -64,8 +64,9 @@ namespace ProducerConsumer
         {
             Thread.Sleep(new Random().Next(minTime, maxTime));
             //int data = new Random().Next();
+            producerSemaphore.WaitOne();
             this.buffer.write(this.id); // we can ask buffer to write generated data
-            
+            consumerSemaphore.Release();
         }
         public void MultiProduce(Object n)
         {
@@ -95,7 +96,9 @@ namespace ProducerConsumer
         public void consume()
         {
             Thread.Sleep(new Random().Next(minTime, maxTime));
+            consumerSemaphore.WaitOne();
             int data = this.buffer.read(this.id);
+            producerSemaphore.Release();
         }
         public void MultiConsume(Object n)
         {
